@@ -365,5 +365,85 @@ code, pre {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
 }
 
+/* Partículas flotantes en hero */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(5deg); }
+  66% { transform: translateY(10px) rotate(-3deg); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(15px) rotate(-5deg); }
+  66% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* Shine en botones CTA */
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shine 3s ease-in-out infinite;
+}
+
+/* Marquee de logos de clientes */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  gap: 64px;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Gradiente animado hero */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Shimmer para cards */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Service card con glow */
+.service-card-glow {
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card-glow:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.4) !important;
+}
+
+/* Project card zoom */
+.project-card-zoom .project-card-visual {
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-card-zoom:hover .project-card-visual {
+  transform: scale(1.05);
+}
+
 
 

@@ -111,12 +111,13 @@ export default function ContactForm() {
         <div>
           <label style={labelStyle} htmlFor="tipo_proyecto">Tipo de proyecto *</label>
           <select id="tipo_proyecto" {...register('tipo_proyecto')} style={{ ...inputStyle(!!errors.tipo_proyecto), cursor: 'pointer' }}>
-            <option value="">Seleccionar...</option>
+            <option value="">Selecciona un tipo</option>
             <option value="web">Aplicación Web</option>
             <option value="movil">App Móvil</option>
-            <option value="crm">CRM / Sistema Interno</option>
-            <option value="consultoria">Consultoría</option>
+            <option value="erp">ERP / Sistema Interno</option>
+            <option value="consultoria">Consultoría Tecnológica</option>
             <option value="otro">Otro</option>
+
           </select>
           {errors.tipo_proyecto && <p style={errorStyle}>{errors.tipo_proyecto.message}</p>}
         </div>

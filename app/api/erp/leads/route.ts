@@ -4,7 +4,7 @@ import { createServerClient } from '@/lib/supabase/server'
 export async function GET(request: NextRequest) {
   // Autenticación con API key
   const apiKey = request.headers.get('x-api-key')
-  if (apiKey !== process.env.CRM_API_KEY) {
+  if (apiKey !== process.env.ERP_API_KEY) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const { data, count, error } = await query
 
     if (error) {
-      console.error('[CRM API] Error:', error)
+      console.error('[ERP API] Error:', error)
       return NextResponse.json({ error: 'Error al obtener leads' }, { status: 500 })
     }
 
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil((count ?? 0) / limit),
     })
   } catch (error) {
-    console.error('[CRM API] Error:', error)
+    console.error('[ERP API] Error:', error)
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 })
   }
 }

@@ -33,10 +33,10 @@ export const servicios: Servicio[] = [
     href: '/servicios#movil',
   },
   {
-    id: 'crm',
-    titulo: 'CRM & Sistemas Internos',
+    id: 'erp',
+    titulo: 'ERP & Sistemas Internos',
     descripcion:
-      'Sistemas de gestión empresarial a medida: CRM, ERP, facturación electrónica y automatización de procesos adaptados a tu flujo de trabajo.',
+      'Sistemas de gestión empresarial a medida: ERP, ERP, facturación electrónica y automatización de procesos adaptados a tu flujo de trabajo.',
     icono: 'BarChart3',
     tecnologias: ['Next.js', 'Supabase', 'PostgreSQL', 'Node.js', 'Zapier'],
     beneficios: [
@@ -45,7 +45,7 @@ export const servicios: Servicio[] = [
       'Reportes e informes en tiempo real',
       'Integración con herramientas existentes',
     ],
-    href: '/servicios#crm',
+    href: '/servicios#erp',
   },
   {
     id: 'integracion',

@@ -4,13 +4,13 @@ import type { Proyecto } from '@/types'
 export const proyectos: Proyecto[] = [
   {
     id: '1',
-    titulo: 'Sistema CRM para Distribuidora Nacional',
-    slug: 'crm-distribuidora-nacional',
+    titulo: 'Sistema ERP para Distribuidora Nacional',
+    slug: 'erp-distribuidora-nacional',
     industria: 'Distribución & Logística',
-    descripcion_corta: 'CRM personalizado que unificó la gestión de 500+ clientes y automatizó el proceso de ventas de punta a punta.',
+    descripcion_corta: 'ERP personalizado que unificó la gestión de 500+ clientes y automatizó el proceso de ventas de punta a punta.',
     descripcion_larga: `La empresa enfrentaba una gestión de clientes fragmentada entre hojas de cálculo y correos electrónicos, lo que resultaba en pérdida de oportunidades de venta y falta de visibilidad del pipeline comercial.
 
-Desarrollamos un CRM a medida integrado con su sistema de facturación existente, con seguimiento de oportunidades en tiempo real, automatización de seguimientos y dashboard de métricas comerciales.
+Desarrollamos un ERP a medida integrado con su sistema de facturación existente, con seguimiento de oportunidades en tiempo real, automatización de seguimientos y dashboard de métricas comerciales.
 
 El resultado fue un aumento del 40% en la tasa de cierre de ventas en los primeros 3 meses, con el equipo comercial ahorrando 2 horas diarias en tareas administrativas.`,
     tecnologias: ['Next.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Node.js'],
@@ -75,7 +75,7 @@ export const testimoniales = [
     cliente_cargo: 'Gerente Comercial',
     empresa: 'Distribuidora del Pacífico',
     avatar_url: '',
-    texto: 'El equipo de TripleSoftware transformó completamente nuestra gestión comercial. El CRM que desarrollaron se adaptó perfectamente a nuestros procesos y el soporte post-lanzamiento ha sido excelente. Aumentamos nuestras ventas un 40% en 3 meses.',
+    texto: 'El equipo de TripleSoftware transformó completamente nuestra gestión comercial. El ERP que desarrollaron se adaptó perfectamente a nuestros procesos y el soporte post-lanzamiento ha sido excelente. Aumentamos nuestras ventas un 40% en 3 meses.',
     activo: true,
   },
   {

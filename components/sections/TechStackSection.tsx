@@ -1,71 +1,89 @@
 'use client'
+// TechStack Section — Rediseño Premium
+// Sección limpia con tooltips minimalistas
 import { useState } from 'react'
-import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/FadeIn'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const techStack = [
-  { name: 'Next.js', category: 'Frontend', color: '#000000', bg: '#F8FAFC' },
-  { name: 'React', category: 'Frontend', color: '#61DAFB', bg: '#F0FEFF' },
-  { name: 'TypeScript', category: 'Lenguaje', color: '#3178C6', bg: '#EFF6FF' },
-  { name: 'Tailwind', category: 'Estilos', color: '#06B6D4', bg: '#F0FEFF' },
-  { name: 'Node.js', category: 'Backend', color: '#339933', bg: '#F0FDF4' },
-  { name: 'Supabase', category: 'Base de datos', color: '#3ECF8E', bg: '#F0FDF4' },
-  { name: 'PostgreSQL', category: 'Base de datos', color: '#336791', bg: '#EFF6FF' },
-  { name: 'React Native', category: 'Mobile', color: '#61DAFB', bg: '#F0FEFF' },
-  { name: 'Flutter', category: 'Mobile', color: '#0553B1', bg: '#EFF6FF' },
-  { name: 'AWS', category: 'Cloud', color: '#FF9900', bg: '#FFFBEB' },
-  { name: 'Vercel', category: 'Deploy', color: '#000000', bg: '#F8FAFC' },
-  { name: 'Stripe', category: 'Pagos', color: '#635BFF', bg: '#EEF2FF' },
+  { name: 'Next.js', category: 'Frontend', color: '#000000' },
+  { name: 'React', category: 'Frontend', color: '#61DAFB' },
+  { name: 'TypeScript', category: 'Lenguaje', color: '#3178C6' },
+  { name: 'Tailwind', category: 'Estilos', color: '#06B6D4' },
+  { name: 'Node.js', category: 'Backend', color: '#339933' },
+  { name: 'Supabase', category: 'BaaS', color: '#3ECF8E' },
+  { name: 'PostgreSQL', category: 'Database', color: '#336791' },
+  { name: 'React Native', category: 'Mobile', color: '#61DAFB' },
+  { name: 'Flutter', category: 'Mobile', color: '#0553B1' },
+  { name: 'AWS', category: 'Cloud', color: '#FF9900' },
+  { name: 'Vercel', category: 'Deploy', color: '#000000' },
+  { name: 'Grok API', category: 'AI', color: '#F59E0B' },
 ]
 
 export default function TechStackSection() {
-  const [tooltip, setTooltip] = useState<string | null>(null)
+  const [hovered, setHovered] = useState<string | null>(null)
 
   return (
-    <section style={{ backgroundColor: '#F8FAFC', padding: '80px 0', borderTop: '1px solid #E2E8F0' }}>
+    <section className="py-20 bg-white border-y border-slate-100">
       <div className="container-site">
-        <FadeIn>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 500, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>
-              Stack Tecnológico
-            </p>
-            <h2 style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 600, color: '#0F172A' }}>
-              Las mejores herramientas para cada desafío
-            </h2>
-          </div>
-        </FadeIn>
+        <div className="text-center mb-12">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-4"
+          >
+            Nuestro Stack Tecnológico
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-2xl md:text-3xl font-bold text-slate-900"
+          >
+            Ingeniería de vanguardia para cada desafío
+          </motion.h2>
+        </div>
 
-        <StaggerContainer>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
-            {techStack.map((tech) => (
-              <StaggerItem key={tech.name}>
-                <div
-                  onMouseEnter={() => setTooltip(tech.name)}
-                  onMouseLeave={() => setTooltip(null)}
-                  style={{
-                    position: 'relative',
-                    padding: '12px 24px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1.5px solid',
-                    borderColor: tooltip === tech.name ? tech.color : '#E2E8F0',
-                    borderRadius: '12px',
-                    cursor: 'default',
-                    transition: 'all 250ms ease',
-                    boxShadow: tooltip === tech.name ? `0 4px 20px ${tech.color}30` : 'none',
-                  }}
-                >
-                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 500, color: tooltip === tech.name ? tech.color : '#374151' }}>
-                    {tech.name}
-                  </span>
-                  {tooltip === tech.name && (
-                    <div style={{ position: 'absolute', bottom: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#0F172A', color: '#FFFFFF', fontSize: '11px', fontFamily: 'Inter, sans-serif', padding: '4px 10px', borderRadius: '6px', whiteSpace: 'nowrap', zIndex: 10 }}>
-                      {tech.category}
-                    </div>
-                  )}
-                </div>
-              </StaggerItem>
-            ))}
-          </div>
-        </StaggerContainer>
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          {techStack.map((tech, i) => (
+            <motion.div
+              key={tech.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              onMouseEnter={() => setHovered(tech.name)}
+              onMouseLeave={() => setHovered(null)}
+              className="relative group"
+            >
+              <div 
+                className={`px-6 py-3 bg-slate-50 border border-slate-100 rounded-2xl cursor-default transition-all duration-300 flex items-center gap-3
+                  ${hovered === tech.name ? 'border-indigo-600 bg-white shadow-xl shadow-indigo-500/10 -translate-y-1' : ''}`}
+              >
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: tech.color }} />
+                <span className={`text-sm font-bold transition-colors ${hovered === tech.name ? 'text-indigo-600' : 'text-slate-600'}`}>
+                  {tech.name}
+                </span>
+              </div>
+
+              {/* Tooltip */}
+              <AnimatePresence>
+                {hovered === tech.name && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-3 py-1 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-md whitespace-nowrap z-20 pointer-events-none"
+                  >
+                    {tech.category}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45 -mt-1" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

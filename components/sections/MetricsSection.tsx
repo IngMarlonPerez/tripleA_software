@@ -1,71 +1,54 @@
 'use client'
-// Métricas — Rediseño estilo FIDEVAL con fondo oscuro y números enormes
+// Metrics Section — Rediseño estilo FIDEVAL Premium
+// Fondo gradiente oscuro (indigo/blue) y números enormes
 import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '@/config/site'
-import { motion } from 'framer-motion'
+import { motion, useInView, useSpring, useTransform } from 'framer-motion'
 
-function useCounter(target: number, duration = 2000, startCounting: boolean) {
-  const [count, setCount] = useState(0)
+function Counter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+  const spring = useSpring(0, { stiffness: 40, damping: 20 })
+  const displayValue = useTransform(spring, (current) => Math.floor(current))
+
   useEffect(() => {
-    if (!startCounting) return
-    let start = 0
-    const increment = target / (duration / 16)
-    const timer = setInterval(() => {
-      start += increment
-      if (start >= target) { setCount(target); clearInterval(timer) }
-      else { setCount(Math.floor(start)) }
-    }, 16)
-    return () => clearInterval(timer)
-  }, [target, duration, startCounting])
-  return count
+    if (isInView) {
+      spring.set(value)
+    }
+  }, [isInView, spring, value])
+
+  return (
+    <motion.span ref={ref}>
+      <motion.span>{displayValue}</motion.span>
+      {suffix}
+    </motion.span>
+  )
 }
 
 function MetricCard({ valor, etiqueta, index }: { valor: string; etiqueta: string; index: number }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
   const match = valor.match(/^(\d+)(.*)$/)
   const numericValue = match ? parseInt(match[1]) : 0
   const suffix = match ? match[2] : ''
-  const count = useCounter(numericValue, 1800, isVisible)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
-      { threshold: 0.3 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.15, ease: 'easeOut' }}
-      style={{ textAlign: 'center', padding: '48px 24px', position: 'relative' }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="flex flex-col items-center justify-center p-8 relative"
     >
-      <div style={{
-        fontFamily: 'Sora, sans-serif',
-        fontSize: 'clamp(44px, 6vw, 72px)',
-        fontWeight: 700,
-        color: '#FFFFFF',
-        lineHeight: 1,
-        marginBottom: '12px',
-        letterSpacing: '-0.03em',
-      }}>
-        <span style={{ color: '#06B6D4' }}>+</span>
-        {isVisible ? count : 0}{suffix}
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 bg-indigo-500/5 opacity-0 hover:opacity-100 transition-opacity rounded-3xl" />
+      
+      <div className="text-[clamp(60px,8vw,100px)] font-bold text-white leading-none tracking-tighter mb-4 flex items-center">
+        <span className="text-indigo-500 mr-2 text-[0.6em]">+</span>
+        <Counter value={numericValue} suffix={suffix} />
       </div>
-      <p style={{
-        fontFamily: 'Inter, sans-serif',
-        fontSize: '15px',
-        color: 'rgba(255,255,255,0.6)',
-        margin: 0,
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        letterSpacing: '0.05em',
-      }}>
+      
+      <div className="h-1 w-12 bg-gradient-to-right from-indigo-600 to-cyan-500 mb-4 rounded-full" />
+      
+      <p className="text-slate-400 font-semibold uppercase tracking-[0.2em] text-xs text-center">
         {etiqueta}
       </p>
     </motion.div>
@@ -74,35 +57,22 @@ function MetricCard({ valor, etiqueta, index }: { valor: string; etiqueta: strin
 
 export default function MetricsSection() {
   return (
-    <section
-      style={{
-        background: 'linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #0F172A 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-      aria-label="Métricas y logros de TRIPLE_A"
-    >
-      {/* Decoración de fondo */}
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '600px', height: '300px', background: 'radial-gradient(ellipse at center, rgba(79,70,229,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+    <section className="bg-midnight relative py-24 overflow-hidden">
+      {/* Background Gradient Shapes */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full" />
+      </div>
 
-      <div className="container-site" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Título de sección */}
-        <div style={{ textAlign: 'center', paddingTop: '64px', marginBottom: '16px' }}>
-          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 500, color: '#818CF8', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            TRIPLE_A en números
-          </span>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0', paddingBottom: '64px' }}>
+      <div className="container-site relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {siteConfig.metricas.map((metrica, i) => (
-            <div
-              key={metrica.etiqueta}
-              style={{
-                borderRight: i < siteConfig.metricas.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-              }}
-            >
-              <MetricCard valor={metrica.valor} etiqueta={metrica.etiqueta} index={i} />
-            </div>
+            <MetricCard 
+              key={metrica.etiqueta} 
+              valor={metrica.valor} 
+              etiqueta={metrica.etiqueta} 
+              index={i} 
+            />
           ))}
         </div>
       </div>

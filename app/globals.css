@@ -316,18 +316,90 @@ code, pre {
 }
 
 /* =====================================================
-   ANIMACIONES GLOBALES
+   ANIMACIONES GLOBALES - PREMIUM
    ===================================================== */
+
+/* Floating animation refined */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+/* Pulse refined for premium look */
+@keyframes pulse-premium {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* Shine effect for elements */
+@keyframes shine {
+  0% { left: -100%; opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { left: 200%; opacity: 0; }
+}
+
+/* Gradient shift for backgrounds */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Mesh Gradient background */
+.bg-mesh {
+  background-color: #0D1117;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(231, 80%, 15%, 1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(244, 80%, 20%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(188, 80%, 20%, 1) 0, transparent 50%);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-pulse-premium {
+  animation: pulse-premium 4s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 4s infinite;
+}
 
 /* Spinner de carga */
 @keyframes spin {
   to { transform: rotate(360deg); }
-}
-
-/* Pulse para skeletons y badges */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 
 /* Bounce para scroll indicator */
@@ -365,40 +437,6 @@ code, pre {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Partículas flotantes en hero */
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-20px) rotate(5deg); }
-  66% { transform: translateY(10px) rotate(-3deg); }
-}
-
-@keyframes float-reverse {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(15px) rotate(-5deg); }
-  66% { transform: translateY(-10px) rotate(3deg); }
-}
-
-/* Shine en botones CTA */
-@keyframes shine {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
-
-.btn-shine {
-  position: relative;
-  overflow: hidden;
-}
-.btn-shine::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  animation: shine 3s ease-in-out infinite;
-}
-
 /* Marquee de logos de clientes */
 @keyframes marquee {
   0% { transform: translateX(0); }
@@ -413,18 +451,6 @@ code, pre {
 }
 .marquee-track:hover {
   animation-play-state: paused;
-}
-
-/* Gradiente animado hero */
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Shimmer para cards */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
 }
 
 /* Service card con glow */

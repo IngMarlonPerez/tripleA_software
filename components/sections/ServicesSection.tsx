@@ -1,22 +1,22 @@
 'use client'
-// Servicios — Rediseño con cards visuales premium
+// Services Section — Rediseño Premium
+// Cards con headers gradientes y badges circulares
 import Link from 'next/link'
 import { Monitor, Smartphone, BarChart3, GitBranch, Lightbulb, ShoppingCart, ArrowRight } from 'lucide-react'
 import { servicios } from '@/config/services'
-import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/FadeIn'
+import { motion } from 'framer-motion'
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>> = {
+const iconMap: Record<string, any> = {
   Monitor, Smartphone, BarChart3, GitBranch, Lightbulb, ShoppingCart,
 }
 
-// Gradiente visual por cada servicio
 const serviceGradients = [
-  'linear-gradient(135deg, #4F46E5, #7C3AED)',
-  'linear-gradient(135deg, #06B6D4, #0EA5E9)',
-  'linear-gradient(135deg, #16A34A, #059669)',
-  'linear-gradient(135deg, #F59E0B, #EF4444)',
-  'linear-gradient(135deg, #8B5CF6, #EC4899)',
-  'linear-gradient(135deg, #0EA5E9, #4F46E5)',
+  'from-indigo-600 to-violet-600',
+  'from-cyan-500 to-blue-600',
+  'from-emerald-500 to-teal-600',
+  'from-orange-500 to-red-600',
+  'from-purple-600 to-pink-600',
+  'from-blue-600 to-indigo-600',
 ]
 
 function ServiceCard({ servicio, index }: { servicio: typeof servicios[0]; index: number }) {
@@ -24,101 +24,94 @@ function ServiceCard({ servicio, index }: { servicio: typeof servicios[0]; index
   const gradient = serviceGradients[index % serviceGradients.length]
 
   return (
-    <StaggerItem>
-      <div
-        className="service-card-glow"
-        style={{
-          backgroundColor: '#FFFFFF',
-          border: '1px solid #E2E8F0',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-        }}
-      >
-        {/* Header visual con gradiente */}
-        <div style={{
-          height: '120px',
-          background: gradient,
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          {/* Patrón decorativo */}
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.15, backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 1px, transparent 1px), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px, 30px 30px' }} />
-          <div style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '16px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
-            backdropFilter: 'blur(8px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid rgba(255,255,255,0.3)',
-          }}>
-            <Icon size={30} color="#FFFFFF" strokeWidth={1.8} />
-          </div>
-        </div>
-
-        {/* Contenido */}
-        <div style={{ padding: '28px 32px 32px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
-          <h3 style={{ fontFamily: 'Sora, sans-serif', fontSize: '19px', fontWeight: 600, color: '#0F172A', lineHeight: 1.3, margin: 0 }}>
-            {servicio.titulo}
-          </h3>
-          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#64748B', lineHeight: 1.75, margin: 0 }}>
-            {servicio.descripcion}
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {servicio.tecnologias.slice(0, 3).map((tech) => (
-              <span key={tech} className="badge-tech" style={{ fontSize: '11px', padding: '3px 10px' }}>{tech}</span>
-            ))}
-            {servicio.tecnologias.length > 3 && (
-              <span className="badge-tech" style={{ fontSize: '11px', padding: '3px 10px' }}>+{servicio.tecnologias.length - 3}</span>
-            )}
-          </div>
-          <Link href={servicio.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 500, color: '#4F46E5', textDecoration: 'none', marginTop: 'auto' }}>
-            Más información <ArrowRight size={14} />
-          </Link>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group bg-white border border-slate-200 rounded-[24px] overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
+    >
+      {/* Gradient Header */}
+      <div className={`h-32 bg-gradient-to-br ${gradient} relative flex items-center justify-center overflow-hidden`}>
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none" 
+             style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+        
+        {/* Circular Icon Badge */}
+        <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-110">
+          <Icon size={28} className="text-white" />
         </div>
       </div>
-    </StaggerItem>
+
+      {/* Content */}
+      <div className="p-8">
+        <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+          {servicio.titulo}
+        </h3>
+        <p className="text-slate-500 text-sm leading-relaxed mb-6">
+          {servicio.descripcion}
+        </p>
+        
+        <div className="flex flex-wrap gap-2 mb-8">
+          {servicio.tecnologias.slice(0, 3).map((tech) => (
+            <span key={tech} className="px-3 py-1 bg-slate-50 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-full border border-slate-100">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <Link 
+          href={servicio.href}
+          className="inline-flex items-center gap-2 text-indigo-600 font-bold text-sm hover:gap-3 transition-all"
+        >
+          Saber más
+          <ArrowRight size={16} />
+        </Link>
+      </div>
+    </motion.div>
   )
 }
 
 export default function ServicesSection() {
   return (
-    <section style={{ backgroundColor: '#FFFFFF', padding: '96px 0' }} id="servicios">
+    <section className="py-24 bg-white" id="servicios">
       <div className="container-site">
-        <FadeIn>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <div className="section-label" style={{ marginBottom: '16px', display: 'inline-flex' }}>Nuestros Servicios</div>
-            <h2 style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 600, color: '#0F172A', marginBottom: '16px', lineHeight: 1.2 }}>
-              Todo lo que tu empresa necesita<br />para digitalizar y crecer
-            </h2>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '17px', color: '#64748B', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
-              Desde la primera línea de código hasta el lanzamiento. Soluciones sólidas, escalables y adaptadas a tu negocio.
-            </p>
-          </div>
-        </FadeIn>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-4"
+          >
+            Nuestros Servicios
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-slate-900 mb-6"
+          >
+            Soluciones de <span className="text-gradient">Ingeniería</span> para el mundo real
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 text-lg"
+          >
+            Construimos productos digitales escalables, seguros y centrados en el usuario.
+          </motion.p>
+        </div>
 
-        <StaggerContainer>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
-            {servicios.map((servicio, i) => (
-              <ServiceCard key={servicio.id} servicio={servicio} index={i} />
-            ))}
-          </div>
-        </StaggerContainer>
-
-        <FadeIn delay={0.2}>
-          <div style={{ textAlign: 'center', marginTop: '56px' }}>
-            <Link href="/servicios" className="btn-secondary" style={{ fontSize: '15px' }}>
-              Ver todos los servicios <ArrowRight size={16} />
-            </Link>
-          </div>
-        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {servicios.map((servicio, i) => (
+            <ServiceCard key={servicio.id} servicio={servicio} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   )

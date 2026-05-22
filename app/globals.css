@@ -1,0 +1,369 @@
+/* =====================================================
+   globals.css — Sistema de diseño TripleSoftware
+   Equipo 02 — Diseño & Sistema Visual
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   VARIABLES CSS — Tokens de diseño
+   ===================================================== */
+:root {
+  /* Fondos */
+  --color-white:    #FFFFFF;
+  --color-slate-50: #F8FAFC;
+  --color-midnight: #0D1117;
+
+  /* Texto */
+  --color-charcoal:  #0F172A;
+  --color-slate-500: #64748B;
+  --color-slate-300: #CBD5E1;
+
+  /* Acentos */
+  --color-indigo-600: #4F46E5;
+  --color-indigo-700: #4338CA;
+  --color-indigo-50:  #EEF2FF;
+  --color-cyan-500:   #06B6D4;
+
+  /* Bordes */
+  --color-slate-200: #E2E8F0;
+
+  /* Semánticos */
+  --color-green-600: #16A34A;
+  --color-red-600:   #DC2626;
+
+  /* Tipografía */
+  --font-sora:  'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Courier New', monospace;
+
+  /* Espaciado base */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Transiciones */
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* =====================================================
+   RESET & BASE
+   ===================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-charcoal);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =====================================================
+   TIPOGRAFÍA — Sistema de jerarquía
+   ===================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora);
+  line-height: 1.2;
+  color: var(--color-charcoal);
+  font-weight: 700;
+}
+
+h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 700; }
+h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; }
+h3 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; }
+h4 { font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; }
+
+p {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-slate-500);
+}
+
+a {
+  color: var(--color-indigo-600);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-indigo-700);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* =====================================================
+   UTILIDADES CUSTOM
+   ===================================================== */
+
+/* Contenedor principal */
+.container-site {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-site {
+    padding: 0 64px;
+  }
+}
+
+/* Gradiente de texto indigo */
+.text-gradient {
+  background: linear-gradient(135deg, #4F46E5, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradiente de fondo hero */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #0D1117 0%, #1a1f2e 50%, #0D1117 100%);
+}
+
+/* Sección con fondo alternado */
+.section-alt {
+  background-color: var(--color-slate-50);
+}
+
+/* Focus ring personalizado */
+*:focus-visible {
+  outline: 2px solid var(--color-indigo-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-slate-50);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-500);
+}
+
+/* =====================================================
+   ANIMACIONES DE ENTRADA (al hacer scroll)
+   ===================================================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay para animaciones escalonadas */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* =====================================================
+   COMPONENTES BASE
+   ===================================================== */
+
+/* Botón primario */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: var(--color-indigo-600);
+  color: #FFFFFF;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 4px 24px rgba(79,70,229,0.25);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-indigo-700);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(79,70,229,0.35);
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Botón secundario */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: transparent;
+  color: var(--color-charcoal);
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-slate-200);
+  cursor: pointer;
+  transition: border-color var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-indigo-600);
+  color: var(--color-indigo-600);
+  background-color: var(--color-indigo-50);
+}
+
+/* Card base */
+.card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+}
+
+.card:hover {
+  box-shadow: 0 10px 40px -4px rgba(0,0,0,0.10), 0 4px 16px -4px rgba(0,0,0,0.06);
+  transform: translateY(-3px);
+}
+
+/* Badge tech */
+.badge-tech {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: var(--color-indigo-50);
+  color: var(--color-indigo-600);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  border-radius: 999px;
+  border: 1px solid rgba(79,70,229,0.2);
+}
+
+/* Separador decorativo */
+.divider {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-indigo-600), var(--color-cyan-500));
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+/* Label de sección */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background-color: var(--color-indigo-50);
+  color: var(--color-indigo-600);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   ANIMACIONES GLOBALES
+   ===================================================== */
+
+/* Spinner de carga */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pulse para skeletons y badges */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Bounce para scroll indicator */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(-8px) translateX(-50%); }
+}
+
+/* Fade in para tooltips y elementos */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide up para el chatbot panel */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Typing indicator para chatbot */
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* Hover effect class */
+.hover-card-indigo:hover {
+  border-color: var(--color-indigo-600) !important;
+  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.1) !important;
+}
+
+.hover-card-indigo-projects:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+

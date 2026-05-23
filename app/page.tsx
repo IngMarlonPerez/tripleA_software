@@ -1,5 +1,3 @@
-// Página principal — Home
-// Equipo 03 — Frontend & Componentes
 import type { Metadata } from 'next'
 import HeroSection from '@/components/sections/HeroSection'
 import MetricsSection from '@/components/sections/MetricsSection'
@@ -12,7 +10,7 @@ import CTASection from '@/components/sections/CTASection'
 export const metadata: Metadata = {
   title: 'TripleSoftware — Desarrollo de Software a Medida en Ecuador',
   description:
-    'Empresa ecuatoriana especializada en desarrollo de software a medida, aplicaciones web y móviles, CRM e integración de sistemas. Filial de Tecnograpp.',
+    'Empresa ecuatoriana especializada en desarrollo de software a medida, aplicaciones web y móviles, ERP e integración de sistemas. Filial de Tecnograpp.',
 }
 
 export default function HomePage() {

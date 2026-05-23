@@ -54,48 +54,15 @@ export default function Header() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
               textDecoration: 'none',
             }}
             aria-label="TRIPLE_A — Inicio"
           >
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #4F46E5, #06B6D4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Code2 size={20} color="#FFFFFF" strokeWidth={2.5} />
-            </div>
-            <div>
-              <span
-                style={{
-                  fontFamily: 'Sora, sans-serif',
-                  fontWeight: 700,
-                  fontSize: '18px',
-                  color: '#0F172A',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                TRIPLE_
-              </span>
-              <span
-                style={{
-                  fontFamily: 'Sora, sans-serif',
-                  fontWeight: 700,
-                  fontSize: '18px',
-                  color: '#4F46E5',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                A
-              </span>
-            </div>
+            <img 
+              src="/images/logo-triple-a.png" 
+              alt="TRIPLE_A Logo" 
+              style={{ height: '38px', width: 'auto', objectFit: 'contain' }} 
+            />
           </Link>
 
           {/* Navegación desktop */}

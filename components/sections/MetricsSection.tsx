@@ -1,54 +1,54 @@
 'use client'
-// Metrics Section — Rediseño estilo FIDEVAL Premium
-// Fondo gradiente oscuro (indigo/blue) y números enormes
+// Métricas — Rediseño Corporativo Equilibrado
 import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '@/config/site'
-import { motion, useInView, useSpring, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
-  const spring = useSpring(0, { stiffness: 40, damping: 20 })
-  const displayValue = useTransform(spring, (current) => Math.floor(current))
-
+function useCounter(target: number, duration = 2000, startCounting: boolean) {
+  const [count, setCount] = useState(0)
   useEffect(() => {
-    if (isInView) {
-      spring.set(value)
-    }
-  }, [isInView, spring, value])
-
-  return (
-    <motion.span ref={ref}>
-      <motion.span>{displayValue}</motion.span>
-      {suffix}
-    </motion.span>
-  )
+    if (!startCounting) return
+    let start = 0
+    const increment = target / (duration / 16)
+    const timer = setInterval(() => {
+      start += increment
+      if (start >= target) { setCount(target); clearInterval(timer) }
+      else { setCount(Math.floor(start)) }
+    }, 16)
+    return () => clearInterval(timer)
+  }, [target, duration, startCounting])
+  return count
 }
 
 function MetricCard({ valor, etiqueta, index }: { valor: string; etiqueta: string; index: number }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
   const match = valor.match(/^(\d+)(.*)$/)
   const numericValue = match ? parseInt(match[1]) : 0
   const suffix = match ? match[2] : ''
+  const count = useCounter(numericValue, 1500, isVisible)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.2 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="flex flex-col items-center justify-center p-8 relative"
+      ref={ref}
+      initial={{ opacity: 0, y: 15 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flex flex-col items-center p-8"
     >
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-indigo-500/5 opacity-0 hover:opacity-100 transition-opacity rounded-3xl" />
-      
-      <div className="text-[clamp(60px,8vw,100px)] font-bold text-white leading-none tracking-tighter mb-4 flex items-center">
-        <span className="text-indigo-500 mr-2 text-[0.6em]">+</span>
-        <Counter value={numericValue} suffix={suffix} />
+      <div className="text-4xl md:text-5xl font-bold text-slate-900 mb-2 font-sora">
+        {isVisible ? count : 0}{suffix}
       </div>
-      
-      <div className="h-1 w-12 bg-gradient-to-right from-indigo-600 to-cyan-500 mb-4 rounded-full" />
-      
-      <p className="text-slate-400 font-semibold uppercase tracking-[0.2em] text-xs text-center">
+      <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest text-center">
         {etiqueta}
       </p>
     </motion.div>
@@ -57,15 +57,9 @@ function MetricCard({ valor, etiqueta, index }: { valor: string; etiqueta: strin
 
 export default function MetricsSection() {
   return (
-    <section className="bg-midnight relative py-24 overflow-hidden">
-      {/* Background Gradient Shapes */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full" />
-      </div>
-
-      <div className="container-site relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section className="bg-slate-50 py-16 border-y border-slate-100">
+      <div className="container-site">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {siteConfig.metricas.map((metrica, i) => (
             <MetricCard 
               key={metrica.etiqueta} 

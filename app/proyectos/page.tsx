@@ -1,4 +1,4 @@
-22// Página de Proyectos — Server Component (Fase 5 — SEO metadata)
+// Página de Proyectos — Server Component (Fase 5 — SEO metadata)
 import type { Metadata } from 'next'
 import { proyectos } from '@/config/projects'
 import ProjectsGrid from '@/components/sections/ProjectsGrid'

@@ -349,54 +349,6 @@ code, pre {
   50% { background-position: 100% 50%; }
 }
 
-/* Mesh Gradient background */
-.bg-mesh {
-  background-color: #0D1117;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(231, 80%, 15%, 1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(244, 80%, 20%, 1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(188, 80%, 20%, 1) 0, transparent 50%);
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow 8s ease-in-out infinite;
-}
-
-.animate-pulse-premium {
-  animation: pulse-premium 4s ease-in-out infinite;
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 12s ease infinite;
-}
-
-.shine-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.shine-effect::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -100%;
-  width: 50%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transform: rotate(45deg);
-  animation: shine 4s infinite;
-}
-
 /* Spinner de carga */
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -427,14 +379,20 @@ code, pre {
 }
 
 /* Hover effect class */
+.hover-card-indigo {
+  transition: all 300ms ease;
+}
 .hover-card-indigo:hover {
-  border-color: var(--color-indigo-600) !important;
-  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.1) !important;
+  border-color: #4F46E5 !important;
+  box-shadow: 0 4px 24px rgba(79, 70, 229, 0.15) !important;
 }
 
+.hover-card-indigo-projects {
+  transition: all 300ms ease;
+}
 .hover-card-indigo-projects:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 40px -4px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Marquee de logos de clientes */
@@ -453,23 +411,62 @@ code, pre {
   animation-play-state: paused;
 }
 
-/* Service card con glow */
-.service-card-glow {
-  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+/* ========================================================= */
+/* PREMIUM DESIGN SYSTEM UTILITIES (WOW FACTOR)              */
+/* ========================================================= */
+
+.text-gradient-premium {
+  background: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #64748B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.service-card-glow:hover {
+
+.text-gradient-brand {
+  background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.4); /* charcoal con opacidad */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glow-orb-indigo {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glow-orb-cyan {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.premium-hover-card {
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-hover-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
-  border-color: rgba(79, 70, 229, 0.4) !important;
+  box-shadow: 0 24px 48px -12px rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.3);
 }
-
-/* Project card zoom */
-.project-card-zoom .project-card-visual {
-  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.project-card-zoom:hover .project-card-visual {
-  transform: scale(1.05);
-}
-
-
-
